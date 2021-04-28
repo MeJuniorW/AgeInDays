@@ -10,15 +10,16 @@ def Main():
     birth_year = int(input("year: "))
     birth = datetime(birth_year, birth_month, birth_day)
     today = datetime.today()
+
     days_between = days_between_years(birth.year, today.year)
     days_upto_today = days_upto_a_date(today.day, today.month, today.year) - 1
     days_upto_birth_day = days_upto_a_date(birth.day, birth.month, birth.year) -1
     days_from_birth_year = days_in_the_year(birth.year) - days_upto_birth_day
     total_days = days_between + days_upto_today + days_from_birth_year
+
     print(f"You have been alive for {total_days} days. Wow.")
 
 def days_in_the_year(year):
-    days = 0
     if ( ((year % 4 == 0) and (year % 100 != 0)) or (year % 400 == 0) ):
         return 366
     else:
@@ -30,7 +31,6 @@ def days_between_years(starting_year, final_year):
     days = 0
     for i in range(years_apart):
         days += days_in_the_year(year)
-        print(days_in_the_year(year))
         year += 1
     return days
 
