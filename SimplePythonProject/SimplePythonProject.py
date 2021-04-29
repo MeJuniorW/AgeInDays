@@ -5,6 +5,9 @@ def Main():
     print("Hello. What is your name?")
     name = input("Name: ")
     print(f"Ok {name}. Tell me your birthday and i will tell you how many days since your birthday")
+    
+
+    
     birth_day = int(input("day: "))
     birth_month = int(input("month: "))
     birth_year = int(input("year: "))
@@ -25,6 +28,21 @@ def days_in_the_year(year):
     else:
         return 365
 
+def days_in_the_month(month, year):
+    days = 0
+    days_with_31_days = {1, 3, 5, 7, 8, 10, 12}
+    days_with_30_days = {4, 6, 9, 11}
+    if month == 2:
+        if ( ( (year % 4 == 0) and (year % 100 == 0) ) or (year % 400 == 0) ):
+            days = 29
+        else:
+            days = 28
+    elif month in days_with_31_days:
+        days = 31
+    elif month in days_with_30_days:
+        days += 30
+    return days
+
 def days_between_years(starting_year, final_year):
     years_apart = final_year - starting_year - 1
     year = starting_year + 1
@@ -36,19 +54,9 @@ def days_between_years(starting_year, final_year):
 
 def days_upto_a_date(day, month, year):
     days_upto = 0
-    days_with_31_days = {1, 3, 5, 7, 8, 10, 12}
-    days_with_30_days = {4, 6, 9, 11}
     start_month = 1
     for i in range(month-1):
-        if start_month == 2:
-            if ( ( (year % 4 == 0) and (year % 100 == 0) ) or (year % 400 == 0) ):
-                days_upto += 29
-            else:
-                days_upto += 28
-        elif start_month in days_with_31_days:
-            days_upto += 31
-        elif start_month in days_with_30_days:
-            days_upto += 30
+        days_upto += days_in_the_month(start_month, year)
         start_month += 1
     days_upto += day;
     return days_upto
